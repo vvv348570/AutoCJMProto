@@ -4,6 +4,6 @@ namespace AutoCJM
 {
     internal class Csvmap
     {
-        public List<string> cells = new();
+        public List<List<string>> cells = new();
     }
 }
