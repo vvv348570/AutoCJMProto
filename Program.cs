@@ -4,8 +4,11 @@ namespace AutoCJM
 {
     internal class Program
     {
-        public static string Version = "0.1";
+        public static string version = "Proto-0.3";
 
+        /// <summary>
+        /// Входная точка программы
+        /// </summary>
         public static void Main()
         {
             Utils.Welcome();
@@ -14,25 +17,40 @@ namespace AutoCJM
             {
                 try
                 {
-                    Console.Write("> ");
+                    CWrite("> ", ConsoleColor.Green);
                     input = Console.ReadLine();
                     input = input.ToLower();
-
-                    if (input.Equals("выход"))
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        Utils.ExecCmd(input);
-                    }
+                    Utils.ExecCmd(input);
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"! Возникла ошибка: {e.Message}");
+                    CWriteLine($"! Возникла ошибка: {e.Message}", ConsoleColor.DarkRed);
                 }
             }
-            return;
+        }
+
+        /// <summary>
+        /// Вывод текста (или объекта) в консоль с определённым цветом
+        /// </summary>
+        /// <param name="obj">Объект вывода</param>
+        /// <param name="color">Цвет вывода</param>
+        public static void CWrite(object obj, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.Write(obj.ToString());
+            Console.ResetColor();
+        }
+
+        /// <summary>
+        /// Вывод текста (или объекта) в консоль с определённым цветом и добавлением новой строки
+        /// </summary>
+        /// <param name="obj">Объект вывода</param>
+        /// <param name="color">Цвет вывода</param>
+        public static void CWriteLine(object obj, ConsoleColor color)
+        {
+            Console.ForegroundColor = color;
+            Console.WriteLine(obj.ToString());
+            Console.ResetColor();
         }
     }
 }

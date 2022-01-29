@@ -4,17 +4,17 @@ namespace AutoCJM
 {
     internal static class Csvutils
     {
-        public static void Write(Csvmap csmap, string value, int x, int y)
+        public static void Write(Map csmap, string value, int x, int y)
         {
-            
+
             return;
         }
 
-        public static Csvmap TellStory()
+        public static Map TellStory()
         {
             string input = "";
             int rating;
-            Csvmap csmap = new();
+            Map csmap = new();
             Csvutils.Write(csmap, "+", 0, 0);
             for (int i = 1; input.Equals("ВСЁ") == false; i++)
             {
@@ -27,8 +27,7 @@ namespace AutoCJM
             return csmap;
         }
 
-#pragma warning disable IDE0060
-        public static void WriteFile(Csvmap csmap, string name)
+        public static void WriteFile(Map csmap, string name)
         {
             // csmap записывается в csv файл
         }
