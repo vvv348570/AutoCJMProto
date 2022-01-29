@@ -6,30 +6,7 @@ namespace AutoCJM
     {
         public static void Write(Csvmap csmap, string value, int x, int y)
         {
-            if (csmap.cells[(x - 1) * x + y] != null)
-            {
-                csmap.cells[(x - 1) * x + y] = value;
-                return;
-            }
-            else
-            {
-                for (int i = 0; i < y; i++)
-                {
-                    for (int j = 0; j < x; j++)
-                    {
-                        if (csmap.cells[i * x + j] == null)
-                        {
-                            csmap.cells.Add("");
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                }
-            }
-
-            csmap.cells[(x - 1) * x + y] = value;
+            
             return;
         }
 
