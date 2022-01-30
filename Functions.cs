@@ -7,11 +7,11 @@ namespace AutoCJM
     internal static class Functions
     {
         /// <summary>
-        /// Выполнение тестового составления CJM
+        /// Теория большого взрыва
         /// </summary>
         public static void Theory()
         {
-            CWriteLine("Составление практического CJM ещё в разработке\nИспользуйте [теория]", ConsoleColor.Cyan);
+            CWriteLine("Составление теории CJM ещё в разработке\nИспользуйте [Практика]", ConsoleColor.Cyan);
         }
 
         /// <summary>
@@ -24,12 +24,13 @@ namespace AutoCJM
             string upText = "";
             string downText = "";
             int rating = 0;
+#pragma warning restore IDE0059 // Возвращение рекомендации "Удалить избыточные операторы объявления"
 
             // Немного приготовлений
             Console.Clear();
             if (OperatingSystem.IsWindows())
             {
-                Console.SetWindowSize(80, 50);
+                Console.SetWindowSize(80, 40);
             }
             Map cjm = new();
 
@@ -73,7 +74,7 @@ namespace AutoCJM
             // У нас есть первый шаг - покажем и добавим его
             Console.WriteLine($"Вот твой первый шаг на CJM {name}:");
             Console.WriteLine($"Шаг: {upText}");
-            Console.WriteLine($"Натроение на шаге: {rating}/5 [{StrRating(rating)}]");
+            Console.WriteLine($"Настроение на шаге: {rating}/5 [{StrRating(rating)}]");
             Console.WriteLine($"Причина настроения: {downText}");
             Console.WriteLine($"Добавляем его? [да/нет] или [д/н]");
             string resp = CRead();
@@ -93,7 +94,7 @@ namespace AutoCJM
 
                 // Оценка
                 Console.WriteLine($"Каким было твоё настроение от 1 до 5 в этот момент?\nГде 5 - Отлично, а 1 - Ужасно");
-                while (true)
+                while (true) 
                 {
                     try
                     {
@@ -118,7 +119,7 @@ namespace AutoCJM
                 // Опрос и добавление
                 Console.WriteLine($"Вот твой первый шаг на CJM {name}:");
                 Console.WriteLine($"Шаг: {upText}");
-                Console.WriteLine($"Натроение на шаге: {rating}/5 [{StrRating(rating)}]");
+                Console.WriteLine($"Настроение на шаге: {rating}/5 [{StrRating(rating)}]");
                 Console.WriteLine($"Причина настроения: {downText}");
                 Console.WriteLine($"Добавляем его? [да/нет] или [д/н]");
 
@@ -154,7 +155,7 @@ namespace AutoCJM
             // И только теперь мы сохраняем это в csv-файл
             cjm.Build();
 
-            CWrite("\n\nCJM был сохранён в файл [CJM.csv] в папке с программой", ConsoleColor.Cyan);
+            CWriteLine("\n\nCJM был сохранён в файл [CJM.csv] в папке с программой", ConsoleColor.Cyan);
         }
 
         /// <summary>

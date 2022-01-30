@@ -62,7 +62,7 @@ namespace AutoCJM
             while (string.IsNullOrWhiteSpace(input)) // не даст вернуть пустой ввод и спросит ещё разок
             {
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.Write("> ");
+                Console.Write("\n> ");
                 Console.ResetColor();
                 input = Console.ReadLine().Trim();
             }
