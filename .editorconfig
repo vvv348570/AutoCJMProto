@@ -2,3 +2,6 @@
 
 # CS8600: Преобразование литерала, допускающего значение NULL или возможного значения NULL в тип, не допускающий значение NULL.
 dotnet_diagnostic.CS8600.severity = silent
+
+# IDE0044: Добавить модификатор только для чтения
+dotnet_diagnostic.IDE0044.severity = silent

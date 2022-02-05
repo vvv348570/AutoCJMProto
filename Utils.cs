@@ -1,39 +1,55 @@
 using System;
+using System.IO;
+using System.Linq;
+using System.Text;
+
+using static AutoCJM.Program;
 
 namespace AutoCJM
 {
+    /// <summary>
+    /// Утилиты, предназначенные для вывода текста и других функций
+    /// </summary>
     internal static class Utils
     {
-        public static void ExecCmd(string str)
+        /// <summary>
+        /// Выполнение команды, полученной в главном цикле
+        /// </summary>
+        /// <param name="command">Имя команды</param>
+        public static void ExecCmd(string command)
         {
-            switch (str)
+            switch (command)
             {
                 case "практика":
+                case "ghfrnbrf": // специально для меня, который вечно путается в раскладках
                     Functions.Practice();
                     break;
 
                 case "теория":
+                case "ntjhbz":
                     Functions.Theory();
                     break;
 
                 case "помощь":
-                    Console.WriteLine("Некоторые команды:");
-                    Console.WriteLine("\"Помощь\": посмотреть эту справку");
-                    Console.WriteLine("\"Теория\": просмотреть теорию по CJM");
-                    Console.WriteLine("\"Практика\": начать практику");
-                    Console.WriteLine("\"Выход\": выйти из программы");
+                case "gjvjom":
+                    Console.WriteLine(" Доступные команды: ");
+                    Console.Write("# "); CWrite("Теория", ConsoleColor.Yellow); Console.WriteLine(" - Немного теории о Custom Journey Map");
+                    Console.Write("# "); CWrite("Практика", ConsoleColor.Yellow); Console.WriteLine(" - Тест создания CJM");
+                    Console.Write("# "); CWrite("Помощь", ConsoleColor.Yellow); Console.WriteLine(" - Вывести эту справку");
+                    Console.Write("# "); CWrite("Выход", ConsoleColor.Yellow); Console.WriteLine(" - Закрыть программу");
+                    Console.WriteLine("\n Все команды могут быть написаны без учёта регистра");
                     break;
-
+                case "выход":
+                case "ds[jl":
+                    Environment.Exit(0);
+                    break;
                 default:
                     Console.WriteLine("Неизвестная команда");
                     break;
             }
             return;
         }
-        public static void Welcome()
-        {
-            Console.WriteLine("Добро пожаловать в AutoCjm версии {0}", Program.Version);
-            Console.WriteLine("Наберите \"Помощь\", чтобы посмотреть справку");
-        }
+
+
     }
 }

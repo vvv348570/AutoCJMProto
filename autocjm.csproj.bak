@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <ApplicationManifest>app.manifest</ApplicationManifest>
@@ -11,14 +11,10 @@
     <Copyright>VVV 2022</Copyright>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <StartupObject>AutoCJM.Program</StartupObject>
-    <IsPublishable>True</IsPublishable>
+    <IsPublishable>False</IsPublishable>
     <DebugType>embedded</DebugType>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <InvariantGlobalization>true</InvariantGlobalization>
-  </PropertyGroup>
-  
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
     <NoWarn>1701;1702;8602</NoWarn>

@@ -1,46 +1,196 @@
 using System;
 
+using static AutoCJM.Program;
+
 namespace AutoCJM
 {
     internal static class Functions
     {
+        /// <summary>
+        /// Теория большого взрыва
+        /// </summary>
         public static void Theory()
         {
-            string input;
-            while (true)
-            { // вместо этой тупой, ущербной функции можно было бы спокойно запилить свой некий формат файлов сбиш для теории, но я не знаю как это сделать на C#
-                Console.WriteLine("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed consequat, purus vitae interdum lacinia, erat eros dapibus neque, et malesuada purus justo quis magna. Sed neque libero, tempor sed dolor ac, vulputate porttitor magna. Aenean mollis, nisl quis egestas tincidunt, leo sem viverra velit, sed tristique nibh leo eget eros. Mauris dictum ultricies tortor et tempus. Curabitur at feugiat justo. Nullam id augue eu metus blandit hendrerit id eget risus. Cras a fermentum ante. Maecenas urna sapien, tincidunt non hendrerit quis, porttitor eget massa.");
-                Console.Write("2 + 2 = ");
-                input = Console.ReadLine();
-                if (!input.Equals("4"))
-                {
-                    continue;
-                }
-
-                Console.WriteLine("Integer dictum sed augue quis placerat. Vivamus tincidunt, lectus vel consequat fringilla, nulla libero pharetra leo, a faucibus ex tellus id erat. Fusce tellus ligula, facilisis et nibh ut, ultricies commodo arcu. Aliquam dignissim eu ante non finibus. In ullamcorper erat eu eros auctor fermentum. Aliquam porta est dui, ultricies gravida sem commodo sed. Morbi tempus nec neque nec interdum. Nullam sed sapien ut purus maximus aliquam ac at mi. Nullam enim metus, suscipit a tortor pharetra, euismod rhoncus sem. Curabitur id velit vel massa ullamcorper molestie. Donec eu porttitor purus. Maecenas nunc felis, interdum vitae ipsum vel, sollicitudin fermentum massa. Donec vitae sem eu purus egestas finibus. Etiam mollis sapien vitae interdum convallis. Aliquam non velit mauris. Sed fermentum, dolor a molestie volutpat, dui tellus pretium nulla, sit amet tempus dolor velit nec magna.");
-                Console.Write("lg100 = ");
-                input = Console.ReadLine();
-                if (!input.Equals("2"))
-                {
-                    continue;
-                }
-
-                // создаём csvшку
-                Csvmap csmap = Csvutils.TellStory();
-                break;
-            }
-            Console.WriteLine("Готово");
-            return;
+            CWriteLine("Составление теории CJM ещё в разработке\nИспользуйте [Практика]", ConsoleColor.Cyan);
         }
 
+        /// <summary>
+        /// Выполнение тестового составления CJM
+        /// </summary>
         public static void Practice()
         {
-            string input = "";
-            Console.WriteLine("С чего начнём?\n1.Составить CJM с помощью, как это было в \"теории\"\n2.Составить CJM самостоятельно");
-            while (input != "1" && input != "2")
+
+#pragma warning disable IDE0059 // Отключение рекомендации "Удалить избыточные операторы объявления"
+            string upText = "";
+            string downText = "";
+            int rating = 0;
+#pragma warning restore IDE0059 // Возвращение рекомендации "Удалить избыточные операторы объявления"
+
+            // Немного приготовлений
+            Console.Clear();
+            if (OperatingSystem.IsWindows())
             {
-                input = Console.ReadLine();
+                Console.SetWindowSize(80, 40);
             }
+            Map cjm = new();
+
+            // Даём имя CJM
+            Console.Title = $"Новый файл | AutoCJM {version}";
+            Console.WriteLine("Привет! Эта интеративная консоль поможет тебе в составлении CJM");
+            Console.WriteLine("Как будет называться этот CJM? Например, \"Мой день\"");
+            string name = CRead();
+            Console.WriteLine($"Ок! Делаем CJM \"{name}\"!");
+            Console.Title = $"{name} | AutoCJM {version}"; // И немного изменим заголовок консоли
+
+        // Разбор первого шага - Описание
+        FirstStep:
+            Console.WriteLine("С чего все началось? Какой был первый шаг?");
+            upText = CRead();
+
+            // Разбор первого шага - Оценка 
+            Console.WriteLine($"Каким было твоё настроение от 1 до 5 в этот момент?\nГде 5 - Отлично, а 1 - Ужасно");
+            while (true)
+            {
+                try
+                {
+                    rating = int.Parse(CRead());
+                }
+                catch (FormatException)
+                {
+                    CWriteLine("Ввести нужно только число! (в цифровом формате, например \"4\")", ConsoleColor.Yellow);
+                    continue;
+                }
+                if (rating < 1 || rating > 5)
+                {
+                    CWriteLine("Это число не лежит в диапазоне [1 - 5]", ConsoleColor.Yellow);
+                    continue;
+                }
+                break;
+            }
+            // Разбор первого шага - Причина 
+            Console.WriteLine($"Теперь можешь описать причину, почему твоё настроение было именно таким");
+            downText = CRead();
+
+            // У нас есть первый шаг - покажем и добавим его
+            Console.WriteLine($"Вот твой первый шаг на CJM {name}:");
+            Console.WriteLine($"Шаг: {upText}");
+            Console.WriteLine($"Настроение на шаге: {rating}/5 [{StrRating(rating)}]");
+            Console.WriteLine($"Причина настроения: {downText}");
+            Console.WriteLine($"Добавляем его? [да/нет] или [д/н]");
+            string resp = CRead();
+            if (resp == "нет" || resp == "н")
+            {
+                goto FirstStep;
+            }
+
+            cjm.AddStep(upText, downText, rating);
+
+            // Все поледующие шаги используют одни и те же фразы, поэтому я кладу их в цикл
+            while (true)
+            {
+                // Шаг
+                Console.WriteLine("Каким был следующий шаг этого путешествия?");
+                upText = CRead();
+
+                // Оценка
+                Console.WriteLine($"Каким было твоё настроение от 1 до 5 в этот момент?\nГде 5 - Отлично, а 1 - Ужасно");
+                while (true) 
+                {
+                    try
+                    {
+                        rating = int.Parse(CRead());
+                    }
+                    catch (FormatException)
+                    {
+                        CWriteLine("Ввести нужно только число! (в цифровом формате, например \"4\")", ConsoleColor.Yellow);
+                        continue;
+                    }
+                    if (rating < 1 || rating > 5)
+                    {
+                        CWriteLine("Это число не лежит в диапазоне [1 - 5]", ConsoleColor.Yellow);
+                        continue;
+                    }
+                    break;
+                }
+                // Причина 
+                Console.WriteLine($"Теперь можешь описать причину, почему твоё настроение было именно таким");
+                downText = CRead();
+
+                // Опрос и добавление
+                Console.WriteLine($"Вот твой первый шаг на CJM {name}:");
+                Console.WriteLine($"Шаг: {upText}");
+                Console.WriteLine($"Настроение на шаге: {rating}/5 [{StrRating(rating)}]");
+                Console.WriteLine($"Причина настроения: {downText}");
+                Console.WriteLine($"Добавляем его? [да/нет] или [д/н]");
+
+            AddLine:
+                resp = CRead();
+                if (resp == "нет" || resp == "н")
+                {
+                    continue;
+                }
+
+                if (resp != "да" && resp != "д")
+                {
+                    goto AddLine;
+                }
+                cjm.AddStep(upText, downText, rating);
+
+
+                Console.WriteLine($"Приступаем к следующему шагу? [да/нет] или [д/н]");
+            NextStep:
+                resp = CRead();
+                if (resp == "нет" || resp == "н")
+                {
+                    break;
+                }
+
+                if (resp != "да" && resp != "д")
+                {
+                    goto NextStep;
+                }
+            }
+
+
+            // И только теперь мы сохраняем это в csv-файл
+            cjm.Build();
+
+            CWriteLine("\n\nCJM был сохранён в файл [CJM.csv] в папке с программой", ConsoleColor.Cyan);
+        }
+
+        /// <summary>
+        /// Бесполезная функция для преобразования числа в строку
+        /// </summary>
+        /// <returns>Строку</returns>
+        public static string StrRating(int rating)
+        {
+            // В теории можно было сделать словать таких значений, но такое будет нечитабельно
+            if (rating == 1)
+            {
+                return "Ужасно";
+            }
+
+            if (rating == 2)
+            {
+                return "Плохо";
+            }
+
+            if (rating == 3)
+            {
+                return "Нормально";
+            }
+
+            if (rating == 4)
+            {
+                return "Хорошо";
+            }
+
+            if (rating == 5)
+            {
+                return "Отлично";
+            }
+
+            return "";
         }
     }
 }
